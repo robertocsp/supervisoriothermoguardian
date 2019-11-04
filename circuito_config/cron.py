@@ -7,17 +7,22 @@ def my_scheduled_job():
 
     for parametro in objetos:
 
-        instrument = minimalmodbus.Instrument(parametro.modulo.porta, parametro.modulo.no_slave)  # port name, slave address (in decimal)
+        instrument = minimalmodbus.Instrument(parametro.modulo.circuito.porta,
+                                              parametro.modulo.no_slave)  # port name, slave address (in decimal)
 
-        instrument.serial.baudrate = parametro.modulo.baudrate  # Baud
-        instrument.serial.parity = parametro.modulo.parity
-        instrument.serial.bytesize = parametro.modulo.bytesize
-        instrument.serial.stopbits = parametro.modulo.stopbits
-        instrument.serial.timeout = parametro.modulo.timeout
+        instrument.serial.baudrate = parametro.modulo.circuito.baudrate  # Baud
+        instrument.serial.parity = parametro.modulo.circuito.parity
+        instrument.serial.bytesize = parametro.modulo.circuito.bytesize
+        instrument.serial.stopbits = parametro.modulo.circuito.stopbits
+        instrument.serial.timeout = parametro.modulo.circuito.timeout
 
-        #tem que testar o parametro de tipo de dados para saber se faz a leitura com o
-        #read_register ou com o read_long
-        register = instrument.read_register(parametro.endereco)
+        # tem que testar o parametro de tipo de dados para saber se faz a leitura com o
+        # read_register ou com o read_long
+
+        if parametro.datatype == parametro.bits32:
+            register = instrument.read_long(parametro.endereco)
+        else:
+            register = instrument.read_register(parametro.endereco)
 
         register = register / parametro.escala
 
@@ -26,14 +31,5 @@ def my_scheduled_job():
         datalog.valor = register
         datalog.save()
 
-        # leitura do arquivo
-        arquivo = open('/Users/robertopereira/Dropbox/ThermoGuardian/supervisorio-thermoguardian/src/supervisorio/log.txt', 'r', encoding="utf8")
-        conteudo = arquivo.readlines()
+    print('Cron Supervisorio excutado')
 
-        conteudo.append(register + '\n')
-
-        arquivo = open('/Users/robertopereira/Dropbox/ThermoGuardian/supervisorio-thermoguardian/src/supervisorio/log.txt', 'w', encoding="utf8")
-        arquivo.writelines(conteudo)
-        arquivo.close()
-
-    print('hello world no django crontab')

@@ -3,15 +3,15 @@ import serial
 
 # Create your models here.
 
-class Circuito(models.Model):
-    nome = models.CharField(max_length=100)
+class Cliente(models.Model):
+    nome = models.CharField(max_length=255)
     descricao = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.nome
 
-class Modulo(models.Model):
-    #paridade:
+class Circuito(models.Model):
+    # paridade:
     NONE = serial.PARITY_NONE
     EVEN = serial.PARITY_EVEN
     ODD = serial.PARITY_ODD
@@ -26,17 +26,25 @@ class Modulo(models.Model):
         (SPACE, 'Space'),
     ]
 
+    nome = models.CharField(max_length=100)
+    descricao = models.CharField(max_length=255, null=True, blank=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True, blank=True)
+    porta = models.CharField(max_length=255, default=NONE)
+    baudrate = models.IntegerField(default=0)
+    parity = models.CharField(max_length=1, choices=PARIDADE, default=NONE)
+    bytesize = models.IntegerField(default=0)
+    stopbits = models.IntegerField(default=0)
+    timeout = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.nome
+
+class Modulo(models.Model):
     circuito = models.ForeignKey(Circuito, on_delete=models.CASCADE)
     fabricante = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
     patrimonio = models.CharField(max_length=100, null=True, blank=True)
     no_slave = models.IntegerField()
-    porta = models.CharField(max_length=255)
-    baudrate = models.IntegerField()
-    parity = models.CharField(max_length=1, choices=PARIDADE, default=NONE)
-    bytesize = models.IntegerField()
-    stopbits = models.IntegerField()
-    timeout = models.IntegerField()
 
     def __str__(self):
         return str(self.no_slave)

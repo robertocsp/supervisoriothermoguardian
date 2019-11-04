@@ -122,5 +122,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRONJOBS = [
-    ('* * * * *', 'circuito_config.cron.my_scheduled_job', '>>/tmp/teste-log.txt')
+    ('* * * * *', 'circuito_config.cron.my_scheduled_job', '>>/tmp/supervisorio-log.txt')
 ]
