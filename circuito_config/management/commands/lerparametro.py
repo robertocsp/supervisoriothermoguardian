@@ -27,9 +27,15 @@ class Command(BaseCommand):
             # read_register ou com o read_long
 
             if parametro.datatype == parametro.bits32:
-                register = instrument.read_long(parametro.endereco)
+                if parametro.signed:
+                    register = instrument.read_long(parametro.endereco, signed=True)
+                else:
+                    register = instrument.read_long(parametro.endereco, signed=False)
             else:
-                register = instrument.read_register(parametro.endereco)
+                if parametro.signed:
+                    register = instrument.read_register(parametro.endereco, signed=True)
+                else:
+                    register = instrument.read_register(parametro.endereco, signed=False)
 
             register = register / parametro.escala
 
@@ -38,6 +44,7 @@ class Command(BaseCommand):
             datalog.valor = register
             datalog.save()
 
+            '''
             # leitura do arquivo
             arquivo = open(
                 '/Users/robertopereira/Dropbox/ThermoGuardian/supervisorio-thermoguardian/src/supervisorio/log.txt',
@@ -51,3 +58,4 @@ class Command(BaseCommand):
                 'w', encoding="utf8")
             arquivo.writelines(conteudo)
             arquivo.close()
+            '''
