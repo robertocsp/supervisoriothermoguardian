@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'circuito_config/style.css' %}">
+    <title>Title</title>
+
+</head>
+<body>
+
+{% if datalogger_list %}
+    <ul>
+    {% for valor_datalogger in datalogger_list %}
+        <li>{{ valor_datalogger.valor }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Sem valores em parametros.</p>
+{% endif %}
+
+</body>
+</html>
