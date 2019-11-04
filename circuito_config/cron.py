@@ -20,9 +20,16 @@ def my_scheduled_job():
         # read_register ou com o read_long
 
         if parametro.datatype == parametro.bits32:
-            register = instrument.read_long(parametro.endereco)
+            if parametro.signed:
+                register = instrument.read_long(parametro.endereco, signed=True)
+            else:
+                register = instrument.read_long(parametro.endereco, signed=False)
         else:
-            register = instrument.read_register(parametro.endereco)
+            if parametro.signed:
+                register = instrument.read_register(parametro.endereco, signed=True)
+            else:
+                register = instrument.read_register(parametro.endereco, signed=False)
+
 
         register = register / parametro.escala
 
