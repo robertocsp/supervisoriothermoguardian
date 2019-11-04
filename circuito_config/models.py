@@ -85,6 +85,7 @@ class Parametro(models.Model):
     ativo = models.BooleanField(default=True)
     datatype = models.CharField(max_length=2, choices=DATATYPE, default=bits16)
     unidade = models.CharField(max_length=20, choices=UNIDADE, default=SEM_UNIDADE)
+    signed = models.BooleanField(default=False)
 
 
     def __str__(self):
