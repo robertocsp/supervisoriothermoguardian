@@ -99,4 +99,12 @@ class Datalog(models.Model):
     def __str__(self):
         return str(self.valor)
 
+class Logerros(models.Model):
+    cod = models.CharField(max_length=50)
+    descricao = models.CharField(max_length=255)
+    datahora = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.cod
+
 

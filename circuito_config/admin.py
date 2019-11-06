@@ -23,6 +23,9 @@ class DatalogAdmin(admin.ModelAdmin):
     def parametro_unidade(self, instance ):
         return instance.parametro.unidade
 
+@admin.register(models.Logerros)
+class LogerrosAdmin(admin.ModelAdmin):
+    list_display = ('cod', 'descricao', 'datahora')
 
 admin.site.register(models.Circuito)
 admin.site.register(models.Modulo)
