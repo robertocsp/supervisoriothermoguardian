@@ -107,4 +107,29 @@ class Logerros(models.Model):
     def __str__(self):
         return self.cod
 
+class Superaquecimentoconfig(models.Model):
+    nome = models.CharField(max_length=100)
+    succao_no_slave = models.IntegerField()
+    succao_no_parametro = models.IntegerField()
+    evaporacao_no_slave = models.IntegerField()
+    evaporacao_no_parametro = models.IntegerField()
+    min_superaquecimento = models.FloatField(default=0)
+    max_superaquecimento = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.nome
+
+class Superaquecimentolog(models.Model):
+    resultado = models.FloatField()
+    superaquecimento = models.BooleanField(default=True)
+    superaquecimentoconfig = models.ForeignKey(Superaquecimentoconfig, on_delete=models.CASCADE)
+    datahora = models.DateTimeField(auto_now_add=True)
+
+
+
+
+
+
+
+
 

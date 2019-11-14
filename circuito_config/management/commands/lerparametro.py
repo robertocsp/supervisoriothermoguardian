@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from circuito_config.models import Parametro, Datalog, Logerros
+from circuito_config.models import Parametro, Datalog, Logerros, Modulo
 import os
 import minimalmodbus
 
@@ -10,6 +10,8 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
+
+        #Datalogger
         objetos = Parametro.objects.all().filter(ativo=True)
 
         for parametro in objetos:
@@ -46,13 +48,17 @@ class Command(BaseCommand):
                     datalog.valor = register
                     datalog.save()
                 except:
-                    mensagem = 'parametro de endereco ' + str(parametro.endereco) + ' nao encontrado'
+                    mensagem = 'parametro de endereco ' + str(parametro.endereco) + ' do modulo ' + str(parametro.modulo.no_slave) + ' nao encontrado'
                     erro = Logerros(cod='TG001', descricao=mensagem)
                     erro.save()
             except:
                 mensagem = 'porta com endereço ' + str(parametro.modulo.circuito.porta) + ' incorreta'
                 erro = Logerros(cod='TG002', descricao=mensagem)
                 erro.save()
+
+        #Superaquecimento
+        
+
 
             '''
             # leitura do arquivo
