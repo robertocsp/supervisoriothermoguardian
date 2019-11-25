@@ -8,9 +8,9 @@ def my_scheduled_job():
         succao = 0
         evaporacao = 0
 
-        succao = randint(4, 12)
+        #succao = randint(4, 12)
 
-        '''
+
         try:
             modulo_succao = Modulo.objects.get(no_slave=superaquecimentoconfig.succao_no_slave)
             try:
@@ -36,7 +36,7 @@ def my_scheduled_job():
             # erro.save()
             print(mensagem)
 
-        '''
+
 
         try:
             modulo_evaporacao = Modulo.objects.get(no_slave=superaquecimentoconfig.evaporacao_no_slave)
