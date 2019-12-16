@@ -1,5 +1,5 @@
-from circuito_config.models import Parametro, Datalog, Logerros, Modulo, Alarme, Alarmelog
-from django.utils import timezone
+from circuito_config.models import Parametro, Datalog, Logerros, Modulo, Alarme, Alarmelog, Contatosalarme
+from django.utils import timezone, dateformat
 from datetime import timedelta
 from django.core.mail import send_mail
 from django.conf import settings
@@ -36,23 +36,29 @@ def my_scheduled_job():
             else:
                 return True
         else:
-            print('parece que o registro de data não é none, segue valor: ' + str(alarme.ultimo_email_enviado))
             return False
 
     def envia_sms():
         print('funcao que vai enviar sms')
 
     def envia_email(alarmelog):
-        subject = 'ALARME: ' + alarmelog.alarme.nome
+
+        lista_contatos = Contatosalarme.objects.filter(recebe_email=True)
+        emails = []
+        for contato in lista_contatos:
+            emails.append(contato.email)
+
+        formatted_date = dateformat.format(timezone.localtime(timezone.now()), 'Y-m-d H:i:s')
+        subject = 'ALARME: ' + alarmelog.alarme.nome + ' -- ' + str(formatted_date)
         message = 'Parametro fora dos valores determinados - Valor mínimo: ' + str(
             alarmelog.alarme.minimo) + ' Valo máximo: ' + str(alarmelog.alarme.maximo) + ' Valor registrado: ' + str(
             alarmelog.resultado)
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['80.pereira@gmail.com', ]
+        # recipient_list = ['80.pereira@gmail.com', ]
+        recipient_list = emails
         send_mail(subject, message, email_from, recipient_list)
 
     lista_alarmes = Alarme.objects.all()
-
     for alarme in lista_alarmes:
         try:
             modulo = Modulo.objects.get(no_slave=alarme.no_slave)
@@ -95,9 +101,9 @@ def my_scheduled_job():
                     alarme.no_parametro) + ' não encontrado'
                 erro = Logerros(cod='TG008', descricao=mensagem)
                 erro.save()
-                # print(mensagem)
+                #print(mensagem)
         except:
             mensagem = 'Alarme - modulo' + str(alarme.no_slave) + ' não encontrado'
             erro = Logerros(cod='TG007', descricao=mensagem)
             erro.save()
-            print(mensagem)
+            #print(mensagem)

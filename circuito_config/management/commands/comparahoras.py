@@ -14,6 +14,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         hora_alterada = timezone.now() + timedelta(hours=2)
-        print(timezone.now())
+        print(timezone.localtime(timezone.now()))
         print(datetime.now())
+        print(timezone.now())
         print(hora_alterada)

@@ -151,6 +151,13 @@ class Alarmelog(models.Model):
     sms_enviado = models.BooleanField(default=False)
     datalog = models.ForeignKey(Datalog, null=True, on_delete=models.SET_NULL)
 
+class Contatosalarme(models.Model):
+    nome = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+    recebe_email = models.BooleanField(default=True)
+    recebe_sms = models.BooleanField(default=True)
+
+
 
 
 
