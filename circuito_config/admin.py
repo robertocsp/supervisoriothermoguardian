@@ -39,7 +39,7 @@ class SuperaquecimentologAdmin(admin.ModelAdmin):
     list_display = ('resultado', 'superaquecimento', 'superaquecimentoconfig', 'datahora')
 
     # list_per_page = sys.maxsize
-    list_per_page = 999
+    list_per_page = 500
     actions = ['export_excel']
 
     def export_excel(self, request, queryset):
@@ -98,8 +98,19 @@ admin.site.register(models.Circuito)
 admin.site.register(models.Modulo)
 admin.site.register(models.Parametro)
 
+@admin.register(models.Alarme)
+class AlarmeAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'no_slave', 'no_parametro', 'minimo', 'maximo', 'em_alarme', 'habilitado', 'ultimo_email_enviado', 'ultimo_sms_enviado')
 
+@admin.register(models.Alarmelog)
+class AlarmelogAdmin(admin.ModelAdmin):
+    list_display = ('resultado', 'alarme', 'datahora', 'email_enviado', 'sms_enviado', 'parametro_nome', 'registro_datalog')
 
+    def parametro_nome(self, instance):
+        return instance.datalog.parametro.nome
+
+    def registro_datalog(self, instance):
+        return instance.datalog.datahora
 
 
 

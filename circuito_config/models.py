@@ -126,6 +126,32 @@ class Superaquecimentolog(models.Model):
     datahora = models.DateTimeField(auto_now_add=True)
 
 
+class Alarme(models.Model):
+
+    nome = models.CharField(max_length=100)
+    no_slave = models.IntegerField()
+    no_parametro = models.IntegerField()
+    minimo = models.FloatField(default=0)
+    maximo = models.FloatField(default=0)
+    tempo_para_reenvio_sms = models.IntegerField(default=2)
+    tempo_para_reenvio_email = models.IntegerField(default=2)
+    em_alarme = models.BooleanField(default=False)
+    ultimo_email_enviado = models.DateTimeField(blank=True, null=True)
+    ultimo_sms_enviado = models.DateTimeField(blank=True, null=True)
+    habilitado = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.nome
+
+class Alarmelog(models.Model):
+    resultado = models.FloatField()
+    alarme = models.ForeignKey(Alarme, on_delete=models.CASCADE)
+    datahora = models.DateTimeField(auto_now_add=True)
+    email_enviado = models.BooleanField(default=False)
+    sms_enviado = models.BooleanField(default=False)
+    datalog = models.ForeignKey(Datalog, null=True, on_delete=models.SET_NULL)
+
+
 
 
 
