@@ -123,6 +123,13 @@ STATIC_URL = '/static/'
 
 CRONJOBS = [
     ('* * * * *', 'circuito_config.cron.my_scheduled_job', '>>/tmp/supervisorio-log.txt'),
-    ('*/2 * * * *', 'circuito_config.cronsuperaquecimento.my_scheduled_job', '>>/tmp/superaquecimento-log.txt')
-
+    ('*/2 * * * *', 'circuito_config.cronsuperaquecimento.my_scheduled_job', '>>/tmp/superaquecimento-log.txt'),
+    ('* * * * *', 'circuito_config.cronalarmes.my_scheduled_job', '>>/tmp/supervisorio-alarmes.txt'),
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'thermoguardian.ti@gmail.com'
+EMAIL_HOST_PASSWORD = 'TRIBUS11'
