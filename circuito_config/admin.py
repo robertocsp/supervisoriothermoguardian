@@ -170,6 +170,8 @@ class AlarmeAdmin(admin.ModelAdmin):
 @admin.register(models.Alarmelog)
 class AlarmelogAdmin(admin.ModelAdmin):
     list_display = ('resultado', 'alarme', 'datahora', 'email_enviado', 'sms_enviado', 'parametro_nome', 'registro_datalog')
+    list_filter = ['alarme__nome']
+
 
     def parametro_nome(self, instance):
         return instance.datalog.parametro.nome
