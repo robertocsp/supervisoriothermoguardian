@@ -21,3 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 ]
+
+admin.site.site_header = "Bitzer Admin"
+admin.site.site_title = "Bitzer Admin Portal"
+admin.site.index_title = "Welcome to Bitzer Researcher Portal"
