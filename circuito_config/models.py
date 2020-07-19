@@ -44,10 +44,10 @@ class Modulo(models.Model):
     fabricante = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
     patrimonio = models.CharField(max_length=100, null=True, blank=True)
-    no_slave = models.IntegerField()
+    no_subordinate = models.IntegerField()
 
     def __str__(self):
-        return str(self.no_slave)
+        return str(self.no_subordinate)
 
 
 class Parametro(models.Model):
@@ -109,9 +109,9 @@ class Logerros(models.Model):
 
 class Superaquecimentoconfig(models.Model):
     nome = models.CharField(max_length=100)
-    succao_no_slave = models.IntegerField()
+    succao_no_subordinate = models.IntegerField()
     succao_no_parametro = models.IntegerField()
-    evaporacao_no_slave = models.IntegerField()
+    evaporacao_no_subordinate = models.IntegerField()
     evaporacao_no_parametro = models.IntegerField()
     min_superaquecimento = models.FloatField(default=0)
     max_superaquecimento = models.FloatField(default=0)

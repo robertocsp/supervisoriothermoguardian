@@ -16,10 +16,10 @@ class Command(BaseCommand):
             succao = 0
             evaporacao = 0
             try:
-                modulo_succao = Modulo.objects.get(no_slave=superaquecimentoconfig.succao_no_slave)
+                modulo_succao = Modulo.objects.get(no_subordinate=superaquecimentoconfig.succao_no_subordinate)
                 try:
                     instrument = minimalmodbus.Instrument(modulo_succao.circuito.porta,
-                                                          modulo_succao.no_slave)  # port name, slave address (in decimal)
+                                                          modulo_succao.no_subordinate)  # port name, subordinate address (in decimal)
 
                     instrument.serial.baudrate = modulo_succao.circuito.baudrate  # Baud
                     instrument.serial.parity = modulo_succao.circuito.parity
@@ -46,13 +46,13 @@ class Command(BaseCommand):
 
                         except:
                             mensagem = 'calculo do superaquecimento - parametro de endereco ' + str(parametro.endereco) + ' do modulo ' + str(
-                                parametro.modulo.no_slave) + ' nao encontrado'
+                                parametro.modulo.no_subordinate) + ' nao encontrado'
                             #erro = Logerros(cod='TG006', descricao=mensagem)
                             #erro.save()
                             print(mensagem)
 
                     except:
-                        mensagem = 'calculo do superaquecimento - modulo: ' + str(modulo_succao.no_slave) + 'parametro de número: ' + str(superaquecimentoconfig.succao_no_parametro) + ' referente a SUCCAO não encontrado'
+                        mensagem = 'calculo do superaquecimento - modulo: ' + str(modulo_succao.no_subordinate) + 'parametro de número: ' + str(superaquecimentoconfig.succao_no_parametro) + ' referente a SUCCAO não encontrado'
                         # erro = Logerros(cod='TG005', descricao=mensagem)
                         # erro.save()
                         print(mensagem)
@@ -62,16 +62,16 @@ class Command(BaseCommand):
                     # erro.save()
                     print(mensagem)
             except:
-                mensagem = 'calculo do superaquecimento - modulo succao ' + str(superaquecimentoconfig.succao_no_slave) + ' não cadastrado'
+                mensagem = 'calculo do superaquecimento - modulo succao ' + str(superaquecimentoconfig.succao_no_subordinate) + ' não cadastrado'
                 # erro = Logerros(cod='TG004', descricao=mensagem)
                 # erro.save()
                 print(mensagem)
 
             try:
-                modulo_evaporacao = Modulo.objects.get(no_slave=superaquecimentoconfig.evaporacao_no_slave)
+                modulo_evaporacao = Modulo.objects.get(no_subordinate=superaquecimentoconfig.evaporacao_no_subordinate)
 
                 try:
-                    instrument = minimalmodbus.Instrument(modulo_evaporacao.circuito.porta, modulo_evaporacao.no_slave)  # port name, slave address (in decimal)
+                    instrument = minimalmodbus.Instrument(modulo_evaporacao.circuito.porta, modulo_evaporacao.no_subordinate)  # port name, subordinate address (in decimal)
 
                     instrument.serial.baudrate = modulo_evaporacao.circuito.baudrate  # Baud
                     instrument.serial.parity = modulo_evaporacao.circuito.parity
@@ -97,13 +97,13 @@ class Command(BaseCommand):
 
                         except:
                             mensagem = 'calculo do superaquecimento - parametro de endereco ' + str(parametro.endereco) + ' do modulo ' + str(
-                                parametro.modulo.no_slave) + 'referente a EVAPORACAO nao encontrado'
+                                parametro.modulo.no_subordinate) + 'referente a EVAPORACAO nao encontrado'
                             #erro = Logerros(cod='TG006', descricao=mensagem)
                             #erro.save()
                             print(mensagem)
 
                     except:
-                        mensagem = 'calculo do superaquecimento - modulo: ' + str(modulo_evaporacao.no_slave) + 'parametro de número: ' + str(superaquecimentoconfig.evaporacao_no_parametro) + ' não encontrado'
+                        mensagem = 'calculo do superaquecimento - modulo: ' + str(modulo_evaporacao.no_subordinate) + 'parametro de número: ' + str(superaquecimentoconfig.evaporacao_no_parametro) + ' não encontrado'
                         # erro = Logerros(cod='TG005', descricao=mensagem)
                         # erro.save()
                         print(mensagem)
@@ -113,7 +113,7 @@ class Command(BaseCommand):
                     # erro.save()
                     print(mensagem)
             except:
-                mensagem = 'calculo do superaquecimento - modulo evaporacao ' + str(superaquecimentoconfig.evaporacao_no_slave) + ' não cadastrado'
+                mensagem = 'calculo do superaquecimento - modulo evaporacao ' + str(superaquecimentoconfig.evaporacao_no_subordinate) + ' não cadastrado'
                 # erro = Logerros(cod='TG004', descricao=mensagem)
                 # erro.save()
                 print(mensagem)
