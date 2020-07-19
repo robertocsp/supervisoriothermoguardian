@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
             try:
                 instrument = minimalmodbus.Instrument(parametro.modulo.circuito.porta,
-                                                      parametro.modulo.no_slave)  # port name, slave address (in decimal)
+                                                      parametro.modulo.no_subordinate)  # port name, subordinate address (in decimal)
 
                 instrument.serial.baudrate = parametro.modulo.circuito.baudrate  # Baud
                 instrument.serial.parity = parametro.modulo.circuito.parity
@@ -48,7 +48,7 @@ class Command(BaseCommand):
                     datalog.valor = register
                     datalog.save()
                 except:
-                    mensagem = 'parametro de endereco ' + str(parametro.endereco) + ' do modulo ' + str(parametro.modulo.no_slave) + ' nao encontrado'
+                    mensagem = 'parametro de endereco ' + str(parametro.endereco) + ' do modulo ' + str(parametro.modulo.no_subordinate) + ' nao encontrado'
                     erro = Logerros(cod='TG001', descricao=mensagem)
                     erro.save()
             except:

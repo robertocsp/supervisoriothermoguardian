@@ -16,9 +16,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nome', models.CharField(max_length=100)),
-                ('succao_no_slave', models.IntegerField()),
+                ('succao_no_subordinate', models.IntegerField()),
                 ('succao_no_parametro', models.IntegerField()),
-                ('evaporacao_no_slave', models.IntegerField()),
+                ('evaporacao_no_subordinate', models.IntegerField()),
                 ('evaporacao_no_parametro', models.IntegerField()),
             ],
         ),

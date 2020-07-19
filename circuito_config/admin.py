@@ -16,7 +16,7 @@ class DatalogAdmin(admin.ModelAdmin):
     list_display = ('id', 'valor', 'parametro_unidade', 'datahora','parametro', 'parametro_nome',)
     list_filter = (
         ('parametro__modulo__circuito__nome'),
-        ('parametro__modulo__no_slave'),
+        ('parametro__modulo__no_subordinate'),
         ('parametro__nome')
     )
 
@@ -32,7 +32,7 @@ class LogerrosAdmin(admin.ModelAdmin):
 
 @admin.register(models.Superaquecimentoconfig)
 class SuperaquecimentoconfigAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'succao_no_slave', 'succao_no_parametro', 'evaporacao_no_slave', 'evaporacao_no_parametro', 'min_superaquecimento', 'max_superaquecimento')
+    list_display = ('nome', 'succao_no_subordinate', 'succao_no_parametro', 'evaporacao_no_subordinate', 'evaporacao_no_parametro', 'min_superaquecimento', 'max_superaquecimento')
 
 @admin.register(models.Superaquecimentolog)
 class SuperaquecimentologAdmin(admin.ModelAdmin):
