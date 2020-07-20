@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('fabricante', models.CharField(max_length=100)),
                 ('modelo', models.CharField(max_length=100)),
                 ('patrimonio', models.CharField(blank=True, max_length=100, null=True)),
-                ('no_slave', models.IntegerField()),
+                ('no_subordinate', models.IntegerField()),
                 ('porta', models.CharField(max_length=255)),
                 ('baudrate', models.IntegerField()),
                 ('parity', models.CharField(choices=[('N', 'None'), ('E', 'Even'), ('O', 'Odd'), ('M', 'Mark'), ('S', 'Space')], default='N', max_length=1)),

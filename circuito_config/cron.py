@@ -10,7 +10,7 @@ def my_scheduled_job():
         # print(modulo)
         try:
             instrument = minimalmodbus.Instrument(modulo.circuito.porta,
-                                                  modulo.no_slave)  # port name, slave address (in decimal)
+                                                  modulo.no_subordinate)  # port name, subordinate address (in decimal)
 
             instrument.serial.baudrate = modulo.circuito.baudrate  # Baud
             instrument.serial.parity = modulo.circuito.parity
@@ -45,7 +45,7 @@ def my_scheduled_job():
 
                 except:
                     mensagem = 'parametro de endereco ' + str(parametro.endereco) + ' do modulo ' + str(
-                        parametro.modulo.no_slave) + ' nao encontrado'
+                        parametro.modulo.no_subordinate) + ' nao encontrado'
                     erro = Logerros(cod='TG001', descricao=mensagem)
                     erro.save()
                     #print(mensagem)
